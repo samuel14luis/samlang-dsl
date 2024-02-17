@@ -80,3 +80,31 @@ fn test_end_of_file_eof() {
 
     assert_eq!(expected, tokens);
 }
+
+#[test]
+fn test_delimiters() {
+    // Arrange
+    let source = "(){},;";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+    // recorrer el vector
+    for _i in 0..source.chars().count() + 1 {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::LPAREN, "(".to_string()),
+        Token::new(TokenType::RPAREN, ")".to_string()),
+        Token::new(TokenType::LBRACE, "{".to_string()),
+        Token::new(TokenType::RBRACE, "}".to_string()),
+        Token::new(TokenType::COMMA, ",".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}

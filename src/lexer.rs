@@ -34,6 +34,12 @@ impl Lexer {
         let patterns = vec![
             (r"^=$", TokenType::ASSIGN),
             (r"^\+$", TokenType::PLUS),
+            (r"^\($", TokenType::LPAREN),
+            (r"^\)$", TokenType::RPAREN),
+            (r"^\{$", TokenType::LBRACE),
+            (r"^\}$", TokenType::RBRACE),
+            (r"^\,$", TokenType::COMMA),
+            (r"^\;$", TokenType::SEMICOLON),
             (r"^$", TokenType::EOF),
         ];
 
