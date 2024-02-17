@@ -27,9 +27,9 @@ fn test_illegal() {
     // Assert
     // expected tokens
     let expected: Vec<Token> = vec![
-        Token::new(TokenType::ILLEGAL, '¡'),
-        Token::new(TokenType::ILLEGAL, '¿'),
-        Token::new(TokenType::ILLEGAL, '@'),
+        Token::new(TokenType::ILLEGAL, "¡".to_string()),
+        Token::new(TokenType::ILLEGAL, "¿".to_string()),
+        Token::new(TokenType::ILLEGAL, "@".to_string()),
     ];
 
     assert_eq!(expected, tokens);
@@ -51,8 +51,31 @@ fn test_one_character_operator() {
     // Assert
     // expected tokens
     let expected: Vec<Token> = vec![
-        Token::new(TokenType::ASSIGN, '='),
-        Token::new(TokenType::PLUS, '+'),
+        Token::new(TokenType::ASSIGN, "=".to_string()),
+        Token::new(TokenType::PLUS, "+".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}
+
+#[test]
+fn test_end_of_file_eof() {
+    // Arrange
+    let source = "+";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+    // recorrer el vector
+    for _i in 0..source.chars().count() + 1 {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::PLUS, "+".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
     ];
 
     assert_eq!(expected, tokens);

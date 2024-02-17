@@ -37,6 +37,8 @@ impl Lexer {
             token = Token { token_type: TokenType::ASSIGN, literal: self._character.clone() };
         } else if Regex::new(r"^\+$").unwrap().is_match(&self._character) {
             token = Token { token_type: TokenType::PLUS, literal: self._character.clone() };
+        } else if Regex::new(r"^$").unwrap().is_match(&self._character) {
+            token = Token { token_type: TokenType::EOF, literal: self._character.clone() };
         } else {
             token = Token { token_type: TokenType::ILLEGAL, literal: self._character.clone() };
         }

@@ -6,10 +6,10 @@ pub struct Token {
 }
 
 impl Token {
-    pub fn new(token_type: TokenType, character: char) -> Token {
+    pub fn new(token_type: TokenType, character: String) -> Token {
         Token {
             token_type: token_type,
-            literal: character.to_string(),
+            literal: character,
         }
     }
 }
