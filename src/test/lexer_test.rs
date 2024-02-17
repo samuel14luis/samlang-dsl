@@ -20,7 +20,7 @@ fn test_illegal() {
     // tokens es una variable que va a contener todos los tokens, es una lista de Token inicialmente vacía
     let mut tokens: Vec<Token> = vec![];
     // recorrer el vector
-    for i in 0..source.chars().count() {
+    for _i in 0..source.chars().count() {
         tokens.push(lexer.next_token());
     }
 
@@ -30,6 +30,29 @@ fn test_illegal() {
         Token::new(TokenType::ILLEGAL, '¡'),
         Token::new(TokenType::ILLEGAL, '¿'),
         Token::new(TokenType::ILLEGAL, '@'),
+    ];
+
+    assert_eq!(expected, tokens);
+}
+
+#[test]
+fn test_one_character_operator() {
+    // Arrange
+    let source = "=+";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+    // recorrer el vector
+    for _i in 0..source.chars().count() {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::ASSIGN, '='),
+        Token::new(TokenType::PLUS, '+'),
     ];
 
     assert_eq!(expected, tokens);

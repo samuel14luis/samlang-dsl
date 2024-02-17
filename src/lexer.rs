@@ -2,6 +2,7 @@ use crate::{
     test::lexer_test::token::Token,
     test::lexer_test::token::TokenType
 };
+use regex::Regex;
 
 #[path = "token.rs"]
 mod token;
@@ -29,8 +30,16 @@ impl Lexer {
     }
 
     pub fn next_token(&mut self) -> Token {
-        // Aquí iría la lógica para obtener el siguiente token y ejecutar read_character
-        let token: Token = Token { token_type: TokenType::ILLEGAL, literal: self._character.clone() };
+
+        let token: Token;
+
+        if Regex::new(r"^=$").unwrap().is_match(&self._character) {
+            token = Token { token_type: TokenType::ASSIGN, literal: self._character.clone() };
+        } else if Regex::new(r"^\+$").unwrap().is_match(&self._character) {
+            token = Token { token_type: TokenType::PLUS, literal: self._character.clone() };
+        } else {
+            token = Token { token_type: TokenType::ILLEGAL, literal: self._character.clone() };
+        }
 
         self.read_character();
 
