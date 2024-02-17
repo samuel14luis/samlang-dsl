@@ -31,16 +31,19 @@ impl Lexer {
 
     pub fn next_token(&mut self) -> Token {
 
-        let token: Token;
+        let patterns = vec![
+            (r"^=$", TokenType::ASSIGN),
+            (r"^\+$", TokenType::PLUS),
+            (r"^$", TokenType::EOF),
+        ];
 
-        if Regex::new(r"^=$").unwrap().is_match(&self._character) {
-            token = Token { token_type: TokenType::ASSIGN, literal: self._character.clone() };
-        } else if Regex::new(r"^\+$").unwrap().is_match(&self._character) {
-            token = Token { token_type: TokenType::PLUS, literal: self._character.clone() };
-        } else if Regex::new(r"^$").unwrap().is_match(&self._character) {
-            token = Token { token_type: TokenType::EOF, literal: self._character.clone() };
-        } else {
-            token = Token { token_type: TokenType::ILLEGAL, literal: self._character.clone() };
+        let mut token: Token = Token { token_type: TokenType::ILLEGAL, literal: self._character.clone() };
+
+        for (pattern, token_type) in patterns {
+            if Regex::new(pattern).unwrap().is_match(&self._character) {
+                token = Token { token_type: token_type, literal: self._character.clone() };
+                break;
+            }
         }
 
         self.read_character();
