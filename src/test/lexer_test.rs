@@ -108,3 +108,31 @@ fn test_delimiters() {
 
     assert_eq!(expected, tokens);
 }
+
+#[test]
+fn test_assignment() {
+    // Arrange
+    let source = "let five=3105;";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+
+    // recorrer el vector
+    while lexer.has_next() {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::LET, "let".to_string()),
+        Token::new(TokenType::IDENT, "five".to_string()),
+        Token::new(TokenType::ASSIGN, "=".to_string()),
+        Token::new(TokenType::INT, "3105".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}

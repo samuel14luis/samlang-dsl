@@ -15,7 +15,7 @@ impl Token {
 }
 
 // definir un enum TokenType que tiene los tipos de tokens que se pueden encontrar
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum TokenType {
     ASSIGN = 1,
     COMMA = 2,
