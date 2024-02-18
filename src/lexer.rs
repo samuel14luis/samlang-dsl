@@ -159,7 +159,7 @@ impl Lexer {
     }
 
     fn _skip_whitespace(&mut self) {
-        let re = Regex::new(r"^\s$").unwrap();
+        let re = Regex::new(r"^[\s\t]$").unwrap();
         while re.is_match(&self._character) {
             self.read_character();            
         }

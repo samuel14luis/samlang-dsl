@@ -112,7 +112,7 @@ fn test_delimiters() {
 #[test]
 fn test_assignment() {
     // Arrange
-    let source = "let five=3105;";
+    let source = "let five=     3105;";
     let mut lexer: Lexer = Lexer::new(source);
 
     // Act
