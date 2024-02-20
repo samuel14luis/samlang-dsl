@@ -180,3 +180,36 @@ fn test_function_declaration() {
 
     assert_eq!(expected, tokens);
 }
+
+#[test]
+fn test_function_call() {
+    // Arrange
+    let source = "variable resultado = suma(dos, tres);";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+
+    // recorrer el vector
+    while lexer.has_next() {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::LET, "variable".to_string()),
+        Token::new(TokenType::IDENT, "resultado".to_string()),
+        Token::new(TokenType::ASSIGN, "=".to_string()),
+        Token::new(TokenType::IDENT, "suma".to_string()),
+        Token::new(TokenType::LPAREN, "(".to_string()),
+        Token::new(TokenType::IDENT, "dos".to_string()),
+        Token::new(TokenType::COMMA, ",".to_string()),
+        Token::new(TokenType::IDENT, "tres".to_string()),
+        Token::new(TokenType::RPAREN, ")".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}
