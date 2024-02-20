@@ -142,3 +142,41 @@ fn test_assignment() {
 
     assert_eq!(expected, tokens);
 }
+
+#[test]
+fn test_function_declaration() {
+    // Arrange
+    let source = "variable suma = función(x, y) { x + y };";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+
+    // recorrer el vector
+    while lexer.has_next() {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::LET, "variable".to_string()),
+        Token::new(TokenType::IDENT, "suma".to_string()),
+        Token::new(TokenType::ASSIGN, "=".to_string()),
+        Token::new(TokenType::FUNCTION, "función".to_string()),
+        Token::new(TokenType::LPAREN, "(".to_string()),
+        Token::new(TokenType::IDENT, "x".to_string()),
+        Token::new(TokenType::COMMA, ",".to_string()),
+        Token::new(TokenType::IDENT, "y".to_string()),
+        Token::new(TokenType::RPAREN, ")".to_string()),
+        Token::new(TokenType::LBRACE, "{".to_string()),
+        Token::new(TokenType::IDENT, "x".to_string()),
+        Token::new(TokenType::PLUS, "+".to_string()),
+        Token::new(TokenType::IDENT, "y".to_string()),
+        Token::new(TokenType::RBRACE, "}".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}

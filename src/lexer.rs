@@ -26,6 +26,7 @@ static PATTERNS: Lazy<Vec<(&'static str, TokenType)>> = Lazy::new(|| {
 static KEYWORDS: Lazy<HashMap<&'static str, TokenType>> = Lazy::new(|| {
     let mut m = HashMap::new();
     m.insert("fn", TokenType::FUNCTION);
+    m.insert("función", TokenType::FUNCTION);
     m.insert("let", TokenType::LET);
     m.insert("var", TokenType::LET);
     m.insert("variable", TokenType::LET);
