@@ -19,8 +19,9 @@ fn test_illegal() {
     // Act
     // tokens es una variable que va a contener todos los tokens, es una lista de Token inicialmente vacía
     let mut tokens: Vec<Token> = vec![];
+
     // recorrer el vector
-    for _i in 0..source.chars().count() {
+    while lexer.has_next() {
         tokens.push(lexer.next_token());
     }
 
@@ -30,6 +31,7 @@ fn test_illegal() {
         Token::new(TokenType::ILLEGAL, "¡".to_string()),
         Token::new(TokenType::ILLEGAL, "¿".to_string()),
         Token::new(TokenType::ILLEGAL, "@".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
     ];
 
     assert_eq!(expected, tokens);
@@ -43,8 +45,9 @@ fn test_one_character_operator() {
 
     // Act
     let mut tokens: Vec<Token> = vec![];
+
     // recorrer el vector
-    for _i in 0..source.chars().count() {
+    while lexer.has_next() {
         tokens.push(lexer.next_token());
     }
 
@@ -53,6 +56,7 @@ fn test_one_character_operator() {
     let expected: Vec<Token> = vec![
         Token::new(TokenType::ASSIGN, "=".to_string()),
         Token::new(TokenType::PLUS, "+".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
     ];
 
     assert_eq!(expected, tokens);
@@ -66,8 +70,9 @@ fn test_end_of_file_eof() {
 
     // Act
     let mut tokens: Vec<Token> = vec![];
+
     // recorrer el vector
-    for _i in 0..source.chars().count() + 1 {
+    while lexer.has_next() {
         tokens.push(lexer.next_token());
     }
 
@@ -89,8 +94,9 @@ fn test_delimiters() {
 
     // Act
     let mut tokens: Vec<Token> = vec![];
+
     // recorrer el vector
-    for _i in 0..source.chars().count() + 1 {
+    while lexer.has_next() {
         tokens.push(lexer.next_token());
     }
 
