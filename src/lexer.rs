@@ -13,12 +13,18 @@ static PATTERNS: Lazy<Vec<(&'static str, TokenType)>> = Lazy::new(|| {
     vec![
         (r"^=$", TokenType::ASSIGN),
         (r"^\+$", TokenType::PLUS),
+        (r"^\-$", TokenType::MINUS),
         (r"^\($", TokenType::LPAREN),
         (r"^\)$", TokenType::RPAREN),
         (r"^\{$", TokenType::LBRACE),
         (r"^\}$", TokenType::RBRACE),
         (r"^\,$", TokenType::COMMA),
         (r"^\;$", TokenType::SEMICOLON),
+        (r"^<$", TokenType::LT),
+        (r"^>$", TokenType::GT),
+        (r"^\/$", TokenType::DIVISION),
+        (r"^\*$", TokenType::MULTIPLICATION),
+        (r"^\!$", TokenType::NEGATION),
         (r"^$", TokenType::EOF),
     ]
 });
@@ -31,10 +37,15 @@ static KEYWORDS: Lazy<HashMap<&'static str, TokenType>> = Lazy::new(|| {
     m.insert("var", TokenType::LET);
     m.insert("variable", TokenType::LET);
     m.insert("true", TokenType::TRUE);
+    m.insert("verdadero", TokenType::TRUE);
     m.insert("false", TokenType::FALSE);
+    m.insert("falso", TokenType::FALSE);
     m.insert("if", TokenType::IF);
+    m.insert("si", TokenType::IF);
     m.insert("else", TokenType::ELSE);
+    m.insert("sino", TokenType::ELSE);
     m.insert("return", TokenType::RETURN);
+    m.insert("retorna", TokenType::RETURN);
     return m;
 });
 

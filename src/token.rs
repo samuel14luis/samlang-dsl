@@ -44,4 +44,7 @@ pub enum TokenType {
     IF = 25,
     ELSE = 26,
     RETURN = 27,
+    DIVISION = 28,
+    MULTIPLICATION = 29,
+    NEGATION = 30,
 }

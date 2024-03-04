@@ -4,6 +4,8 @@ use crate::{
     test::lexer_test::token::TokenType
 };
 
+use pretty_assertions::assert_eq;
+
 #[path = "../lexer.rs"]
 mod lexer;
 
@@ -40,7 +42,7 @@ fn test_illegal() {
 #[test]
 fn test_one_character_operator() {
     // Arrange
-    let source = "=+";
+    let source = "=+-/*<>!";
     let mut lexer: Lexer = Lexer::new(source);
 
     // Act
@@ -56,6 +58,12 @@ fn test_one_character_operator() {
     let expected: Vec<Token> = vec![
         Token::new(TokenType::ASSIGN, "=".to_string()),
         Token::new(TokenType::PLUS, "+".to_string()),
+        Token::new(TokenType::MINUS, "-".to_string()),
+        Token::new(TokenType::DIVISION, "/".to_string()),
+        Token::new(TokenType::MULTIPLICATION, "*".to_string()),
+        Token::new(TokenType::LT, "<".to_string()),
+        Token::new(TokenType::GT, ">".to_string()),
+        Token::new(TokenType::NEGATION, "!".to_string()),
         Token::new(TokenType::EOF, "".to_string()),
     ];
 
@@ -208,6 +216,46 @@ fn test_function_call() {
         Token::new(TokenType::IDENT, "tres".to_string()),
         Token::new(TokenType::RPAREN, ")".to_string()),
         Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::EOF, "".to_string()),
+    ];
+
+    assert_eq!(expected, tokens);
+}
+
+#[test]
+fn test_control_statement() {
+    // Arrange
+    let source = "si (5 < 10) { retorna verdadero; } sino { retorna falso; }";
+    let mut lexer: Lexer = Lexer::new(source);
+
+    // Act
+    let mut tokens: Vec<Token> = vec![];
+
+    // recorrer el vector
+    while lexer.has_next() {
+        tokens.push(lexer.next_token());
+    }
+
+    // Assert
+    // expected tokens
+    let expected: Vec<Token> = vec![
+        Token::new(TokenType::IF, "si".to_string()),
+        Token::new(TokenType::LPAREN, "(".to_string()),
+        Token::new(TokenType::INT, "5".to_string()),
+        Token::new(TokenType::LT, "<".to_string()),
+        Token::new(TokenType::INT, "10".to_string()),
+        Token::new(TokenType::RPAREN, ")".to_string()),
+        Token::new(TokenType::LBRACE, "{".to_string()),
+        Token::new(TokenType::RETURN, "retorna".to_string()),
+        Token::new(TokenType::TRUE, "verdadero".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::RBRACE, "}".to_string()),
+        Token::new(TokenType::ELSE, "sino".to_string()),
+        Token::new(TokenType::LBRACE, "{".to_string()),
+        Token::new(TokenType::RETURN, "retorna".to_string()),
+        Token::new(TokenType::FALSE, "falso".to_string()),
+        Token::new(TokenType::SEMICOLON, ";".to_string()),
+        Token::new(TokenType::RBRACE, "}".to_string()),
         Token::new(TokenType::EOF, "".to_string()),
     ];
 
